@@ -33,13 +33,17 @@
         "@typescript-eslint/explicit-function-return-type": [
             "error",
             {
-                "allowEspressions": true
+                "allowExpressions": true
             }
         ],
+
         "prettier/prettier": "error",
+
         "@typescript-eslint/no-unused-vars": ["error", {
             "argsIgnorePattern": "_"
-        }]
+        }],
+
+        "class-methods-use-this": "off"
     },
     "settings": {
         "import/resolver":{
