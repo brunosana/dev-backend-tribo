@@ -1,10 +1,11 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export default class createTeams1604154698971 implements MigrationInterface {
+export default class createChampionship1604162645794
+    implements MigrationInterface {
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
             new Table({
-                name: 'teams',
+                name: 'championships',
                 columns: [
                     {
                         name: 'id',
@@ -16,41 +17,18 @@ export default class createTeams1604154698971 implements MigrationInterface {
                     {
                         name: 'name',
                         type: 'varchar',
-                        isUnique: true,
                     },
                     {
-                        name: 'logo',
-                        type: 'varchar',
-                        isNullable: true,
+                        name: 'start',
+                        type: 'timestamp',
                     },
                     {
-                        name: 'player1',
-                        type: 'varchar',
-                        isNullable: true,
+                        name: 'end',
+                        type: 'timestamp',
                     },
                     {
-                        name: 'player2',
-                        type: 'varchar',
-                        isNullable: true,
-                    },
-                    {
-                        name: 'player3',
-                        type: 'varchar',
-                        isNullable: true,
-                    },
-                    {
-                        name: 'player4',
-                        type: 'varchar',
-                        isNullable: true,
-                    },
-                    {
-                        name: 'player5',
-                        type: 'varchar',
-                        isNullable: true,
-                    },
-                    {
-                        name: 'coach',
-                        type: 'varchar',
+                        name: 'winnerId',
+                        type: 'uuid',
                         isNullable: true,
                     },
                     {
@@ -69,6 +47,6 @@ export default class createTeams1604154698971 implements MigrationInterface {
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable('teams');
+        await queryRunner.dropTable('championships');
     }
 }
