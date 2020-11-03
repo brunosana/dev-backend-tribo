@@ -1,6 +1,7 @@
 import { getRepository } from 'typeorm';
 import AppError from '../errors/AppError';
 import Championship from '../models/Championship';
+import ChampionshipTeams from '../models/ChampionshipTeams';
 
 class DeleteChampionshipService {
     public async execute(id: string): Promise<void> {
@@ -17,6 +18,12 @@ class DeleteChampionshipService {
         if (!championship) {
             throw new AppError('Championship has not found');
         }
+
+        const championshipTeamsRepository = getRepository(ChampionshipTeams);
+
+        await championshipTeamsRepository.delete({
+            championship: championship.id,
+        });
 
         await championshipRepository.remove(championship);
     }

@@ -5,6 +5,7 @@ import {
     PrimaryGeneratedColumn,
     UpdateDateColumn,
 } from 'typeorm';
+import Championship from './Championship';
 
 @Entity('teams')
 class Team {
@@ -40,6 +41,8 @@ class Team {
 
     @UpdateDateColumn()
     updatedAt: Date;
+
+    championships: Championship[];
 }
 
 export default Team;

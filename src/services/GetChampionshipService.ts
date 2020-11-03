@@ -1,7 +1,12 @@
 import { getRepository } from 'typeorm';
 import AppError from '../errors/AppError';
 import Championship from '../models/Championship';
+import ChampionshipTeams from '../models/ChampionshipTeams';
 import Team from '../models/Team';
+
+interface teamsIdProps {
+    id: string;
+}
 
 class GetChampionshipService {
     public async execute(id: string): Promise<Championship> {
@@ -25,6 +30,35 @@ class GetChampionshipService {
                 championship.winner = winner;
             }
         }
+
+        const championshipTeamRepository = getRepository(ChampionshipTeams);
+
+        const relations = await championshipTeamRepository.find({
+            where: {
+                championship: championship.id,
+            },
+        });
+
+        if (relations.length > 0) {
+            const teamsID: teamsIdProps[] = [];
+
+            relations.forEach(relation => {
+                teamsID.push({
+                    id: relation.team,
+                });
+            });
+
+            const teamRepository = getRepository(Team);
+
+            const teams = await teamRepository.find({
+                where: teamsID,
+            });
+
+            if (teams) {
+                championship.teams = teams;
+            }
+        }
+
         return championship;
     }
 }

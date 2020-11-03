@@ -35,6 +35,8 @@ class Championship {
 
     @UpdateDateColumn()
     updatedAt: Date;
+
+    teams: Team[];
 }
 
 export default Championship;
